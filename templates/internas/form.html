@@ -8,7 +8,7 @@
             {{ field }}
             {% if  field.field.widget.input_type == "select" %}
                 <a href="{% url field.html_name %}">
-                    <button type="button" class="btn btn-danger">Registrar nuevo</button>
+                    <button type="button" class="btn btn-danger">Agregar</button>
                 </a>
             {% endif %}
         {% endfor %}
