@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block center %}
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }}
+            {% if  field.field.widget.input_type == "select" %}
+                <a href="{% url field.html_name %}">
+                    <button type="button" class="btn btn-danger">Registrar nuevo</button>
+                </a>
+            {% endif %}
+        {% endfor %}
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-flat float-right btnTest">
+                <i class="fas fa-save"></i> Guardar
+            </button>
+        </div>
+    </form>
+{% endblock %}
