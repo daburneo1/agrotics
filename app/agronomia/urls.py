@@ -19,26 +19,30 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from app.agronomia.views import BaseView, IndexView, PlantView, NewPlantView, SeguimientoView, \
-    TaxonomiaView, CuidadoView, RiegoView, PlantacionView, SemilleroView, SueloView, HumedadView, MorfologiaView, \
-    TemperaturaView, CategoriaView, PlantUpdateView, PlantDeleteView
+from app.agronomia.views import (BaseView, IndexView, PlantView, NewPlantView, SeguimientoView, TaxonomiaView,
+                                 CuidadoView, RiegoView, PlantacionView, SemilleroView, SueloView,
+                                 HumedadView, MorfologiaView,
+                                 TemperaturaView, CategoriaView, PlantUpdateView, PlantDeleteView, NewSeguimientoView,
+                                 DatosFenologicosCultivoView, DatosFertilizanteView, DatosClimaView,
+                                 DatosAnalisisSueloView, DatosControlPlagasView, DatosUbicacionView, VariedadesView,
+                                 SeguimientoDeleteView, SeguimientoUpdateView, ValorNutricionalView,
+                                 )
 
 urlpatterns = [
                   path("base", BaseView.as_view(), name='base'),
                   path("", IndexView.as_view(), name='index'),
                   path("plantas/", PlantView.as_view(), name='plant_list'),
-
                   path('plant/edit/<int:pk>', PlantUpdateView.as_view(), name='plant_update'),
                   path('plant/delete/<int:pk>', PlantDeleteView.as_view(), name='plant_delete'),
-
-
                   path("seguimiento/", SeguimientoView.as_view(), name='seguimiento_list'),
+                  path('seguimiento/edit/<int:pk>', SeguimientoUpdateView.as_view(), name='seguimiento_update'),
+                  path('seguimiento/delete/<int:pk>', SeguimientoDeleteView.as_view(), name='seguimiento_delete'),
+
                   path("nueva_plantas/", NewPlantView.as_view(), name='nuevaPlanta'),
-                  # path("nueva_seguimientos/", NewSeguimientoView.as_view(), name='nuevaSeguimiento'),
+                  path("nueva_seguimientos/", NewSeguimientoView.as_view(), name='nuevaSeguimiento'),
                   path("nueva_taxonomia/", TaxonomiaView.as_view(), name='idTaxonomia'),
                   path("nueva_cuidado/", CuidadoView.as_view(), name='idCuidado'),
                   path("nueva_riego/", RiegoView.as_view(), name='idRiego'),
-
                   path("nueva_plantacion/", PlantacionView.as_view(), name='idPlantacion'),
                   path("nueva_semillero/", SemilleroView.as_view(), name='idSemillero'),
                   path("nueva_suelo/", SueloView.as_view(), name='idSuelo'),
@@ -46,4 +50,15 @@ urlpatterns = [
                   path("nueva_morfologia/", MorfologiaView.as_view(), name='idMorfologia'),
                   path("nueva_temperatura/", TemperaturaView.as_view(), name='idTemperatura'),
                   path("nueva_categoria/", CategoriaView.as_view(), name='idCategoria'),
+                  path("nueva_nutricional/", ValorNutricionalView.as_view(), name='idValorNutricional'),
+
+                  path("nueva_datosfenologicos/", DatosFenologicosCultivoView.as_view(),
+                       name='idDatosFenologicosCultivo'),
+                  path("nueva_datosfertilizante/", DatosFertilizanteView.as_view(), name='idDatosFertilizante'),
+                  path("nueva_datosclima/", DatosClimaView.as_view(), name='idDatosClima'),
+                  path("nueva_datosanalisisSuelo/", DatosAnalisisSueloView.as_view(), name='idDatosAnalisisSuelo'),
+                  path("nueva_datoscontrolplagas/", DatosControlPlagasView.as_view(), name='idDatosControlPlagas'),
+                  path("nueva_datosubicacion/", DatosUbicacionView.as_view(), name='idDatosUbicacion'),
+                  path("nueva_plantas/", NewPlantView.as_view(), name='idPlanta'),
+                  path("nueva_variedades/", VariedadesView.as_view(), name='idVariedades'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

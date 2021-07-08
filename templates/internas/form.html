@@ -1,21 +1,36 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 {% load static %}
+{#{% load split %}#}
 {% block center %}
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.label_tag }}
-            {{ field }}
-            {% if  field.field.widget.input_type == "select" %}
-                <a href="{% url field.html_name %}">
-                    <button type="button" class="btn btn-danger">Agregar</button>
-                </a>
-            {% endif %}
-        {% endfor %}
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary btn-flat float-right btnTest">
-                <i class="fas fa-save"></i> Guardar
-            </button>
+
+    {#    <div class="content-wrapper">#}
+<h1>{{ request.resolver_match.route}}</h1>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {#            {{ field.label_tag }}#}
+                            {{ field|as_crispy_field }}
+                            {% if  field.field.widget.input_type == "select" %}
+                                <a href="{% url field.html_name %}">
+                                    <button type="button" class="btn btn-danger">Agregar</button>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-flat float-right btnTest">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+    </section>
+    {#    </div>#}
 {% endblock %}

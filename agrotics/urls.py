@@ -22,5 +22,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.agronomia.urls')),
-    path('api', include('app.agronomia.api_urls'))
+    path('api/', include('app.agronomia.api_urls'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

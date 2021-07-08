@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from app.agronomia.models import Planta, Taxonomia, Cuidado, Riego, Plantacion, Semillero, Suelo, Humedad, Morfologia, \
-    Temperatura, Categoria
+    Temperatura, Categoria, DatosCultivo, DatosFenologicosCultivo, DatosFertilizante, DatosClima, DatosAnalisisSuelo, \
+    DatosControlPlagas, DatosUbicacion, Variedades
 
 
 class TaxonomiaSerializer(serializers.ModelSerializer):
@@ -79,7 +80,7 @@ class PlantaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Planta
         fields = [
-            "imagen", "cicloVida", "origen", "usoAplicacion",
+            "id", "imagen", "cicloVida", "origen", "usoAplicacion",
             "produccionPromedio", "altura",
             "diametro", "clima", "preparacionTerreno",
             "qr", "fechaIngreso", "idTaxonomia",
@@ -87,3 +88,62 @@ class PlantaSerializer(serializers.ModelSerializer):
             "idSemillero", "idSuelo", "idHumedad", "idMorfologia"
             , "idTemperatura", "idCategoria"
         ]
+
+
+class DatosFenologicosCultivoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatosFenologicosCultivo
+        fields = "__all__"
+
+
+class DatosFertilizanteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatosFertilizante
+        fields = "__all__"
+
+
+class DatosClimaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatosClima
+        fields = "__all__"
+
+
+class DatosAnalisisSueloSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatosAnalisisSuelo
+        fields = "__all__"
+
+
+class DatosControlPlagasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatosControlPlagas
+        fields = "__all__"
+
+
+class DatosUbicacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DatosUbicacion
+        fields = "__all__"
+
+
+class VariedadesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Variedades
+        fields = "__all__"
+
+
+class SeguimientoSerializer(serializers.ModelSerializer):
+    idDatosFenologicosCultivo = DatosFenologicosCultivoSerializer()
+    idDatosFertilizante = DatosFertilizanteSerializer()
+    idDatosClima = DatosClimaSerializer()
+    idDatosAnalisisSuelo = DatosAnalisisSueloSerializer()
+    idDatosControlPlagas = DatosControlPlagasSerializer()
+    idDatosUbicacion = DatosUbicacionSerializer()
+    idPlanta = PlantaSerializer()
+    idVariedades = VariedadesSerializer()
+
+    class Meta:
+        model = DatosCultivo
+        fields = ["id", "planta", "nombreCientifico", "fechaImplementacion", "idDatosFenologicosCultivo",
+                  "idDatosFertilizante", "idDatosClima", "idDatosAnalisisSuelo", "idDatosControlPlagas",
+                  "idDatosUbicacion", "idPlanta", "idVariedades"]

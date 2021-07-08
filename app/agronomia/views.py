@@ -10,8 +10,10 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from app.agronomia.forms import PlantaForm, TaxonomiaForm, CuidadoForm, RiegoForm, PlantacionForm, \
-    SemilleroForm, SueloForm, HumedadForm, MorfologiaForm, TemperaturaForm, CategoriaForm
-from app.agronomia.models import Planta
+    SemilleroForm, SueloForm, HumedadForm, MorfologiaForm, TemperaturaForm, CategoriaForm, SeguimientoForm, \
+    DatosFenologicosCultivoForm, DatosFertilizanteForm, DatosClimaForm, DatosAnalisisSueloForm, DatosControlPlagasForm, \
+    DatosUbicacionForm, VariedadesForm, ValorNutricionalForm
+from app.agronomia.models import Planta, DatosCultivo
 
 
 class BaseView(TemplateView):
@@ -27,7 +29,8 @@ class PlantView(ListView):
     template_name = "internas/planta.html"
 
 
-class SeguimientoView(TemplateView):
+class SeguimientoView(ListView):
+    model = DatosCultivo
     template_name = "internas/seguimiento.html"
 
 
@@ -37,10 +40,11 @@ class NewPlantView(CreateView):
     success_url = "/nueva_plantas/"
 
 
-# class NewSeguimientoView(CreateView):
-#     template_name = "internas/form.html"
-#     form_class = SeguimientoForm
-#
+class NewSeguimientoView(CreateView):
+    template_name = "internas/form.html"
+    form_class = SeguimientoForm
+    success_url = "/seguimiento/"
+
 
 class TaxonomiaView(CreateView):
     template_name = "internas/form.html"
@@ -59,6 +63,7 @@ class RiegoView(CreateView):
     form_class = RiegoForm
     success_url = "/nueva_plantas/"
 
+
 class PlantacionView(CreateView):
     template_name = "internas/form.html"
     form_class = PlantacionForm
@@ -69,6 +74,7 @@ class SemilleroView(CreateView):
     template_name = "internas/form.html"
     form_class = SemilleroForm
     success_url = "/nueva_plantas/"
+
 
 class SueloView(CreateView):
     template_name = "internas/form.html"
@@ -81,20 +87,69 @@ class HumedadView(CreateView):
     form_class = HumedadForm
     success_url = "/nueva_plantas/"
 
+
 class MorfologiaView(CreateView):
     template_name = "internas/form.html"
     form_class = MorfologiaForm
     success_url = "/nueva_plantas/"
+
 
 class TemperaturaView(CreateView):
     template_name = "internas/form.html"
     form_class = TemperaturaForm
     success_url = "/nueva_plantas/"
 
+
 class CategoriaView(CreateView):
     template_name = "internas/form.html"
     form_class = CategoriaForm
     success_url = "/nueva_plantas/"
+
+class ValorNutricionalView(CreateView):
+    template_name = "internas/form.html"
+    form_class = ValorNutricionalForm
+    success_url = "/nueva_plantas"
+
+class DatosFenologicosCultivoView(CreateView):
+    template_name = "internas/form.html"
+    form_class = DatosFenologicosCultivoForm
+    success_url = "/nueva_seguimientos/"
+
+
+class DatosAnalisisSueloView(CreateView):
+    template_name = "internas/form.html"
+    form_class = DatosAnalisisSueloForm
+    success_url = "/nueva_seguimientos/"
+
+
+class DatosControlPlagasView(CreateView):
+    template_name = "internas/form.html"
+    form_class = DatosControlPlagasForm
+    success_url = "/nueva_seguimientos/"
+
+
+class DatosUbicacionView(CreateView):
+    template_name = "internas/form.html"
+    form_class = DatosUbicacionForm
+    success_url = "/nueva_seguimientos/"
+
+
+class VariedadesView(CreateView):
+    template_name = "internas/form.html"
+    form_class = VariedadesForm
+    success_url = "/nueva_seguimientos/"
+
+
+class DatosClimaView(CreateView):
+    template_name = "internas/form.html"
+    form_class = DatosClimaForm
+    success_url = "/nueva_seguimientos/"
+
+
+class DatosFertilizanteView(CreateView):
+    template_name = "internas/form.html"
+    form_class = DatosFertilizanteForm
+    success_url = "/nueva_seguimientos/"
 
 
 class PlantUpdateView(UpdateView):
@@ -117,7 +172,6 @@ class PlantUpdateView(UpdateView):
                     form.save()
                 else:
                     data['error'] = form.errors
-            # data = Planta.objects.get(pk=request.POST['id']).toJSON()
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
@@ -130,6 +184,41 @@ class PlantUpdateView(UpdateView):
         context['action'] = 'edit'
         return context
 
+
+
+class SeguimientoUpdateView(UpdateView):
+    model = DatosCultivo
+    form_class = SeguimientoForm
+    template_name = "internas/form.html"
+    success_url = reverse_lazy('seguimiento_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            form = self.get_form()
+            if action == 'edit':
+                if form.is_valid():
+                    form.save()
+                else:
+                    data['error'] = form.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data)
+
+    def get_context_data(self, **kwargs):
+        print(self.get_object())
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edición de seguimiento'
+        context['list_url'] = reverse_lazy('seguimiento_list')
+        context['action'] = 'edit'
+        return context
+
+
 class PlantDeleteView(DeleteView):
     model = Planta
     template_name = 'internas/delete.html'
@@ -141,4 +230,17 @@ class PlantDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Eliminar planta'
         context['list_url'] = reverse_lazy('plant_list')
+        return context
+
+
+class SeguimientoDeleteView(DeleteView):
+    model = DatosCultivo
+    template_name = 'internas/delete.html'
+    form_class = SeguimientoForm
+    success_url = reverse_lazy('seguimiento_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Eliminar seguimiento'
+        context['list_url'] = reverse_lazy('seguimiento_list')
         return context

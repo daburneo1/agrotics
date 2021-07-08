@@ -18,9 +18,9 @@ class Morfologia(models.Model):
 
 
 class Temperatura(models.Model):
-    optima = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    germinacion = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    crecimiento = models.DecimalField(null=True, decimal_places=3, max_digits=10)
+    optima = models.CharField(null=True, max_length=200, blank=True)
+    germinacion = models.CharField(null=True, max_length=200, blank=True)
+    crecimiento = models.CharField(null=True, max_length=200, blank=True)
     descripcion = models.CharField(null=True, max_length=200)
 
     def __str__(self):
@@ -107,6 +107,12 @@ class Riego(models.Model):
         _list = [str(self.sistema), str(self.detalle)]
         return " - ".join(list(_list))
 
+class ValorNutricional(models.Model):
+    detalle = models.CharField(null=True, max_length=100)
+    valor = models.CharField(null=True, max_length=45)
+
+    def __str__(self):
+        return self.detalle
 
 class Planta(models.Model):
     imagen = models.FileField(upload_to='images/', null=True, blank=True)
@@ -136,9 +142,11 @@ class Planta(models.Model):
                                       verbose_name="Temperatura")
     idCategoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True,
                                     verbose_name="Categoria")
+    idValorNutricional = models.ForeignKey(ValorNutricional, on_delete=models.CASCADE, null=True,
+                                           verbose_name="Valor Nutricional")
 
     def __str__(self):
-        return str(self.cicloVida)
+        return str(self.idTaxonomia.nombreCientifico)
 
 
 class Variedades(models.Model):
@@ -152,13 +160,6 @@ class ZonaProduccion(models.Model):
 
 class EpocaSiembra(models.Model):
     nombreEpoca = models.CharField(null=True, max_length=45)
-
-
-class ValorNutricional(models.Model):
-    detalle = models.CharField(null=True, max_length=100)
-    valor = models.CharField(null=True, max_length=45)
-    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-
 
 class PlagasEnfermedades(models.Model):
     nombre = models.CharField(null=True, max_length=100)
@@ -183,9 +184,9 @@ class DatosControlPlagas(models.Model):
 
 
 class DatosClima(models.Model):
-    temperatura = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    humedad = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    riego = models.DecimalField(null=True, decimal_places=3, max_digits=10)
+    temperatura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    humedad = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    riego = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
 
 
 class DatosUbicacion(models.Model):
@@ -194,41 +195,40 @@ class DatosUbicacion(models.Model):
 
 
 class DatosAnalisisSuelo(models.Model):
-    ph = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    mo = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    nitrogeno = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    fosforo = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    potasio = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    otros = models.CharField(null=True, max_length=100)
+    ph = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    mo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    nitrogeno = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    fosforo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    potasio = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    otros = models.CharField(null=True, max_length=100, blank=True)
 
 
 class DatosFenologicosCultivo(models.Model):
-    germinacion = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    altura = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    nroRacimo = models.IntegerField()
-    nroFloresRacimo = models.IntegerField()
-    nroTotalFlores = models.IntegerField()
-    nroFrutosRacimo = models.IntegerField()
-    nroFrutosTotales = models.IntegerField()
-    longitudFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    diametroFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    pesoFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    produccion = models.DecimalField(null=True, decimal_places=3, max_digits=10)
+    germinacion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    altura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    nroRacimo = models.IntegerField(null=True, blank=True)
+    nroFloresRacimo = models.IntegerField(null=True, blank=True)
+    nroTotalFlores = models.IntegerField(null=True, blank=True)
+    nroFrutosRacimo = models.IntegerField(null=True, blank=True)
+    nroFrutosTotales = models.IntegerField(null=True, blank=True)
+    longitudFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    diametroFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    pesoFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    produccion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
 
 
 class DatosCultivo(models.Model):
-    planta = models.CharField(null=True, max_length=45)
-    nombreCientifico = models.CharField(null=True, max_length=45)
-    fechaImplementacion = models.DateField(null=True)
-    idDatosFenologicosCultivo = models.ForeignKey(DatosFenologicosCultivo, on_delete=models.CASCADE, null=True)
-    idDatosFertilizante = models.ForeignKey(DatosFertilizante, on_delete=models.CASCADE, null=True)
-    idDatosClima = models.ForeignKey(DatosClima, on_delete=models.CASCADE, null=True)
-    idDatosAnalisisSuelo = models.ForeignKey(DatosAnalisisSuelo, on_delete=models.CASCADE, null=True)
-    idDatosControlPlagas = models.ForeignKey(DatosControlPlagas, on_delete=models.CASCADE, null=True)
-    idDatosUbicacion = models.ForeignKey(DatosUbicacion, on_delete=models.CASCADE, null=True)
-    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-    idVariedades = models.ForeignKey(Variedades, on_delete=models.CASCADE, null=True)
+    # planta = models.CharField(null=True, max_length=45)
+    # nombreCientifico = models.CharField(null=True, max_length=45)
+    # fechaImplementacion = models.DateField(null=True)
+    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True, verbose_name="Planta")
+    idDatosUbicacion = models.ForeignKey(DatosUbicacion, on_delete=models.CASCADE, null=True, verbose_name="Ubicación")
+    idDatosFenologicosCultivo = models.ForeignKey(DatosFenologicosCultivo, on_delete=models.CASCADE, null=True, verbose_name="Datos Fenológicos")
+    idDatosFertilizante = models.ForeignKey(DatosFertilizante, on_delete=models.CASCADE, null=True, verbose_name="Fertilizante")
+    idDatosClima = models.ForeignKey(DatosClima, on_delete=models.CASCADE, null=True, verbose_name="Datos de Clima")
+    idDatosAnalisisSuelo = models.ForeignKey(DatosAnalisisSuelo, on_delete=models.CASCADE, null=True, verbose_name="Análisis del Suelo")
+    idDatosControlPlagas = models.ForeignKey(DatosControlPlagas, on_delete=models.CASCADE, null=True, verbose_name="Control de Plagas")
 
 
 class Usuario(models.Model):
