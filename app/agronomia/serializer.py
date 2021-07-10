@@ -64,10 +64,30 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = "__all__"
 
+
 class ZonaProduccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ZonaProduccion
         fields = "__all__"
+
+
+class ValorNutricionalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ValorNutricional
+        fields = "__all__"
+
+
+class EpocaSiembraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EpocaSiembra
+        fields = "__all__"
+
+
+class PlagasEnfermedadesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlagasEnfermedades
+        fields = "__all__"
+
 
 class PlantaSerializer(serializers.ModelSerializer):
     idTaxonomia = TaxonomiaSerializer()
@@ -80,6 +100,10 @@ class PlantaSerializer(serializers.ModelSerializer):
     idMorfologia = MorfologiaSerializer()
     idTemperatura = TemperaturaSerializer()
     idCategoria = CategoriaSerializer()
+    idValorNutricional = ValorNutricionalSerializer()
+    idZonaProduccion = ZonaProduccionSerializer()
+    idEpocaSiembra = EpocaSiembraSerializer()
+    idPlagasEnfermedades = PlagasEnfermedadesSerializer()
 
     class Meta:
         model = Planta
@@ -90,7 +114,8 @@ class PlantaSerializer(serializers.ModelSerializer):
             "qr", "fechaIngreso", "idTaxonomia",
             "idCuidado", "idRiego", "idPlantacion",
             "idSemillero", "idSuelo", "idHumedad", "idMorfologia"
-            , "idTemperatura", "idCategoria"
+            , "idTemperatura", "idCategoria", "idValorNutricional",
+            "idZonaProduccion", "idEpocaSiembra", "idPlagasEnfermedades"
         ]
 
 
@@ -135,20 +160,6 @@ class VariedadesSerializer(serializers.ModelSerializer):
         model = Variedades
         fields = "__all__"
 
-class ValorNutricionalSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ValorNutricional
-        fields = "__all__"
-
-class EpocaSiembraSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EpocaSiembra
-        fields = "__all__"
-
-class PlagasEnfermedadesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PlagasEnfermedades
-        fields = "__all__"
 
 class SeguimientoSerializer(serializers.ModelSerializer):
     idDatosFenologicosCultivo = DatosFenologicosCultivoSerializer()
