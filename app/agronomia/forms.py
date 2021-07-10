@@ -4,7 +4,7 @@ from django.forms import ModelForm, Textarea, TextInput, FileInput
 
 from app.agronomia.models import Planta, Riego, Taxonomia, Cuidado, Plantacion, Semillero, Suelo, Humedad, Morfologia, \
     Temperatura, Categoria, DatosCultivo, DatosFenologicosCultivo, DatosFertilizante, DatosClima, DatosAnalisisSuelo, \
-    DatosControlPlagas, DatosUbicacion, Variedades, ValorNutricional
+    DatosControlPlagas, DatosUbicacion, Variedades, ValorNutricional, ZonaProduccion, EpocaSiembra, PlagasEnfermedades
 
 
 class PlantaForm(ModelForm):
@@ -123,4 +123,20 @@ class TemperaturaForm(ModelForm):
 class CategoriaForm(ModelForm):
     class Meta:
         model = Categoria
+        fields = "__all__"
+
+
+class ZonaProduccionForm(ModelForm):
+    class Meta:
+        model = ZonaProduccion
+        fields = "__all__"
+
+class EpocaSiembraForm(ModelForm):
+    class Meta:
+        model = EpocaSiembra
+        fields = "__all__"
+
+class PlagasEnfermedadesForm(ModelForm):
+    class Meta:
+        model = PlagasEnfermedades
         fields = "__all__"

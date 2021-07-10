@@ -25,7 +25,8 @@ from app.agronomia.views import (BaseView, IndexView, PlantView, NewPlantView, S
                                  TemperaturaView, CategoriaView, PlantUpdateView, PlantDeleteView, NewSeguimientoView,
                                  DatosFenologicosCultivoView, DatosFertilizanteView, DatosClimaView,
                                  DatosAnalisisSueloView, DatosControlPlagasView, DatosUbicacionView, VariedadesView,
-                                 SeguimientoDeleteView, SeguimientoUpdateView, ValorNutricionalView,
+                                 SeguimientoDeleteView, SeguimientoUpdateView, ValorNutricionalView, ZonaProduccionView,
+                                 EpocaSiembraView, PlagasEnfermedadesView,
                                  )
 
 urlpatterns = [
@@ -51,6 +52,9 @@ urlpatterns = [
                   path("nueva_temperatura/", TemperaturaView.as_view(), name='idTemperatura'),
                   path("nueva_categoria/", CategoriaView.as_view(), name='idCategoria'),
                   path("nueva_nutricional/", ValorNutricionalView.as_view(), name='idValorNutricional'),
+                  path("nueva_zona_produccion/", ZonaProduccionView.as_view(), name='idZonaProduccion'),
+                  path("nueva_epoca_siembra/", EpocaSiembraView.as_view(), name='idEpocaSiembra'),
+                  path("nueva_plagas_enfermedades/", PlagasEnfermedadesView.as_view(), name='idPlagasEnfermedades'),
 
                   path("nueva_datosfenologicos/", DatosFenologicosCultivoView.as_view(),
                        name='idDatosFenologicosCultivo'),

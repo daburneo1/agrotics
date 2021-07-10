@@ -5,12 +5,12 @@ from django.utils.datetime_safe import datetime
 
 
 class Morfologia(models.Model):
-    semilla = models.CharField(null=True, max_length=60)
-    raiz = models.CharField(null=True, max_length=60)
-    tallo = models.CharField(null=True, max_length=60)
-    hojas = models.CharField(null=True, max_length=60)
-    inflorescencia = models.CharField(null=True, max_length=60)
-    fruto = models.CharField(null=True, max_length=60)
+    semilla = models.CharField(null=True, max_length=100)
+    raiz = models.CharField(null=True, max_length=100)
+    tallo = models.CharField(null=True, max_length=100)
+    hojas = models.CharField(null=True, max_length=100)
+    inflorescencia = models.CharField(null=True, max_length=100)
+    fruto = models.CharField(null=True, max_length=100)
 
     def __str__(self):
         _list = [str(self.semilla), str(self.raiz)]
@@ -62,7 +62,7 @@ class Taxonomia(models.Model):
 class Cuidado(models.Model):
     abonoFertilizacion = models.CharField(null=True, max_length=100,
                                           verbose_name="abonamiento y fertitlizacion")
-    controlMalasHierbas = models.CharField(null=True, max_length=100,
+    controlMalasHierbas = models.CharField(null=True, max_length=200,
                                            verbose_name="control de malas hierbas")
     recoleccionAlmacenamiento = models.CharField(null=True, max_length=200, verbose_name="recoleccion")
 
@@ -107,12 +107,26 @@ class Riego(models.Model):
         _list = [str(self.sistema), str(self.detalle)]
         return " - ".join(list(_list))
 
+
 class ValorNutricional(models.Model):
     detalle = models.CharField(null=True, max_length=100)
     valor = models.CharField(null=True, max_length=45)
 
     def __str__(self):
         return self.detalle
+
+
+class ZonaProduccion(models.Model):
+    nombreRegion = models.CharField(null=True, max_length=45)
+
+
+class EpocaSiembra(models.Model):
+    nombreEpoca = models.CharField(null=True, max_length=45)
+
+
+class PlagasEnfermedades(models.Model):
+    nombre = models.CharField(null=True, max_length=100)
+
 
 class Planta(models.Model):
     imagen = models.FileField(upload_to='images/', null=True, blank=True)
@@ -144,6 +158,12 @@ class Planta(models.Model):
                                     verbose_name="Categoria")
     idValorNutricional = models.ForeignKey(ValorNutricional, on_delete=models.CASCADE, null=True,
                                            verbose_name="Valor Nutricional")
+    idZonaProduccion = models.ForeignKey(ZonaProduccion, on_delete=models.CASCADE, null=True,
+                                         verbose_name="Zona de Producción")
+    idEpocaSiembra = models.ForeignKey(EpocaSiembra, on_delete=models.CASCADE, null=True,
+                                       verbose_name="Época de Siembra")
+    idPlagasEnfermedades = models.ForeignKey(PlagasEnfermedades, on_delete=models.CASCADE, null=True,
+                                             verbose_name='Plagas y enfermedades')
 
     def __str__(self):
         return str(self.idTaxonomia.nombreCientifico)
@@ -152,17 +172,6 @@ class Planta(models.Model):
 class Variedades(models.Model):
     variedad = models.CharField(null=True, max_length=45)
     idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-
-
-class ZonaProduccion(models.Model):
-    nombreRegion = models.CharField(null=True, max_length=45, )
-
-
-class EpocaSiembra(models.Model):
-    nombreEpoca = models.CharField(null=True, max_length=45)
-
-class PlagasEnfermedades(models.Model):
-    nombre = models.CharField(null=True, max_length=100)
 
 
 class RegistroGeneral(models.Model):
@@ -224,11 +233,15 @@ class DatosCultivo(models.Model):
     # fechaImplementacion = models.DateField(null=True)
     idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True, verbose_name="Planta")
     idDatosUbicacion = models.ForeignKey(DatosUbicacion, on_delete=models.CASCADE, null=True, verbose_name="Ubicación")
-    idDatosFenologicosCultivo = models.ForeignKey(DatosFenologicosCultivo, on_delete=models.CASCADE, null=True, verbose_name="Datos Fenológicos")
-    idDatosFertilizante = models.ForeignKey(DatosFertilizante, on_delete=models.CASCADE, null=True, verbose_name="Fertilizante")
+    idDatosFenologicosCultivo = models.ForeignKey(DatosFenologicosCultivo, on_delete=models.CASCADE, null=True,
+                                                  verbose_name="Datos Fenológicos")
+    idDatosFertilizante = models.ForeignKey(DatosFertilizante, on_delete=models.CASCADE, null=True,
+                                            verbose_name="Fertilizante")
     idDatosClima = models.ForeignKey(DatosClima, on_delete=models.CASCADE, null=True, verbose_name="Datos de Clima")
-    idDatosAnalisisSuelo = models.ForeignKey(DatosAnalisisSuelo, on_delete=models.CASCADE, null=True, verbose_name="Análisis del Suelo")
-    idDatosControlPlagas = models.ForeignKey(DatosControlPlagas, on_delete=models.CASCADE, null=True, verbose_name="Control de Plagas")
+    idDatosAnalisisSuelo = models.ForeignKey(DatosAnalisisSuelo, on_delete=models.CASCADE, null=True,
+                                             verbose_name="Análisis del Suelo")
+    idDatosControlPlagas = models.ForeignKey(DatosControlPlagas, on_delete=models.CASCADE, null=True,
+                                             verbose_name="Control de Plagas")
 
 
 class Usuario(models.Model):
@@ -238,18 +251,3 @@ class Usuario(models.Model):
     password = models.CharField(null=True, max_length=45)
     idDatosCultivo = models.ForeignKey(DatosCultivo, on_delete=models.CASCADE, null=True)
     idRegistroGeneral = models.ForeignKey(RegistroGeneral, on_delete=models.CASCADE, null=True)
-
-
-class Planta_has_ZonaProduccion(models.Model):
-    idZonaProduccion = models.ForeignKey(ZonaProduccion, on_delete=models.CASCADE, null=True)
-    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-
-
-class Planta_has_EpocaSiembra(models.Model):
-    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-    idEpocaSiembra = models.ForeignKey(EpocaSiembra, on_delete=models.CASCADE, null=True)
-
-
-class Planta_has_PlagasEnfermedades(models.Model):
-    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-    idPlagasEnfermedades = models.ForeignKey(PlagasEnfermedades, on_delete=models.CASCADE, null=True)

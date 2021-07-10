@@ -12,7 +12,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from app.agronomia.forms import PlantaForm, TaxonomiaForm, CuidadoForm, RiegoForm, PlantacionForm, \
     SemilleroForm, SueloForm, HumedadForm, MorfologiaForm, TemperaturaForm, CategoriaForm, SeguimientoForm, \
     DatosFenologicosCultivoForm, DatosFertilizanteForm, DatosClimaForm, DatosAnalisisSueloForm, DatosControlPlagasForm, \
-    DatosUbicacionForm, VariedadesForm, ValorNutricionalForm
+    DatosUbicacionForm, VariedadesForm, ValorNutricionalForm, ZonaProduccionForm, EpocaSiembraForm, \
+    PlagasEnfermedadesForm
 from app.agronomia.models import Planta, DatosCultivo
 
 
@@ -151,6 +152,20 @@ class DatosFertilizanteView(CreateView):
     form_class = DatosFertilizanteForm
     success_url = "/nueva_seguimientos/"
 
+class ZonaProduccionView(CreateView):
+    template_name = "internas/form.html"
+    form_class = ZonaProduccionForm
+    success_url = "/nueva_seguimientos/"
+
+class EpocaSiembraView(CreateView):
+    template_name = "internas/form.html"
+    form_class = EpocaSiembraForm
+    success_url = "/nueva_seguimientos/"
+
+class PlagasEnfermedadesView(CreateView):
+    template_name = "internas/form.html"
+    form_class = PlagasEnfermedadesForm
+    success_url = "/nueva_seguimientos/"
 
 class PlantUpdateView(UpdateView):
     model = Planta

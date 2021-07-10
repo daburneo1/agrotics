@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from app.agronomia.models import Planta, Taxonomia, Cuidado, Riego, Plantacion, Semillero, Suelo, Humedad, Morfologia, \
     Temperatura, Categoria, DatosCultivo, DatosFenologicosCultivo, DatosFertilizante, DatosClima, DatosAnalisisSuelo, \
-    DatosControlPlagas, DatosUbicacion, Variedades
+    DatosControlPlagas, DatosUbicacion, Variedades, ZonaProduccion, PlagasEnfermedades, EpocaSiembra, ValorNutricional
 
 
 class TaxonomiaSerializer(serializers.ModelSerializer):
@@ -64,6 +64,10 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = "__all__"
 
+class ZonaProduccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ZonaProduccion
+        fields = "__all__"
 
 class PlantaSerializer(serializers.ModelSerializer):
     idTaxonomia = TaxonomiaSerializer()
@@ -131,6 +135,20 @@ class VariedadesSerializer(serializers.ModelSerializer):
         model = Variedades
         fields = "__all__"
 
+class ValorNutricionalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ValorNutricional
+        fields = "__all__"
+
+class EpocaSiembraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EpocaSiembra
+        fields = "__all__"
+
+class PlagasEnfermedadesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlagasEnfermedades
+        fields = "__all__"
 
 class SeguimientoSerializer(serializers.ModelSerializer):
     idDatosFenologicosCultivo = DatosFenologicosCultivoSerializer()
