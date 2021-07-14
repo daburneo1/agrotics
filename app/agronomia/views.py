@@ -1,33 +1,67 @@
-from django.shortcuts import render
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, FormView, DeleteView, UpdateView, CreateView, ListView
+from django.views.generic import TemplateView, DeleteView, UpdateView, CreateView, ListView
 
-from django.contrib import messages
-from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.urls import reverse_lazy
+from django.http import JsonResponse
 
 from app.agronomia.forms import PlantaForm, TaxonomiaForm, CuidadoForm, RiegoForm, PlantacionForm, \
     SemilleroForm, SueloForm, HumedadForm, MorfologiaForm, TemperaturaForm, CategoriaForm, SeguimientoForm, \
     DatosFenologicosCultivoForm, DatosFertilizanteForm, DatosClimaForm, DatosAnalisisSueloForm, DatosControlPlagasForm, \
     DatosUbicacionForm, VariedadesForm, ValorNutricionalForm, ZonaProduccionForm, EpocaSiembraForm, \
     PlagasEnfermedadesForm
-from app.agronomia.models import Planta, DatosCultivo
+from app.agronomia.models import Planta, DatosCultivo, Variedades
 
 
 class BaseView(TemplateView):
     template_name = "base.html"
 
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = "internas/index.html"
+    redirect_field_name = 'index'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context.update({
+            "countPlant": Planta.objects.count(),
+            "countSeguimiento": DatosCultivo.objects.count(),
+            "countVariedades": Variedades.objects.count()
+        })
+        return context
 
 
-class PlantView(ListView):
+class PlantView(LoginRequiredMixin, ListView):
+    redirect_field_name = 'plant_list'
     model = Planta
     template_name = "internas/planta.html"
+
+
+class ZonaProduccionView(LoginRequiredMixin, CreateView):
+    template_name = "internas/form.html"
+    form_class = ZonaProduccionForm
+    success_url = "/nueva_seguimientos/"
+    redirect_field_name = 'idZonaProduccion'
+
+
+class EpocaSiembraView(CreateView):
+    template_name = "internas/form.html"
+    form_class = EpocaSiembraForm
+    success_url = "/nueva_seguimientos/"
+
+
+class PlagasEnfermedadesView(CreateView):
+    template_name = "internas/form.html"
+    form_class = PlagasEnfermedadesForm
+    success_url = "/nueva_seguimientos/"
+
+
+class ValorNutricionalView(CreateView):
+    template_name = "internas/form.html"
+    form_class = ValorNutricionalForm
+    success_url = "/nueva_plantas"
 
 
 class SeguimientoView(ListView):
@@ -52,6 +86,10 @@ class TaxonomiaView(CreateView):
     success_url = "/nueva_plantas/"
     form_class = TaxonomiaForm
 
+class VariedadesView(CreateView):
+    template_name = "internas/form.html"
+    success_url = "/nueva-plantas/"
+    form_class = VariedadesForm
 
 class CuidadoView(CreateView):
     template_name = "internas/form.html"
@@ -106,10 +144,6 @@ class CategoriaView(CreateView):
     form_class = CategoriaForm
     success_url = "/nueva_plantas/"
 
-class ValorNutricionalView(CreateView):
-    template_name = "internas/form.html"
-    form_class = ValorNutricionalForm
-    success_url = "/nueva_plantas"
 
 class DatosFenologicosCultivoView(CreateView):
     template_name = "internas/form.html"
@@ -152,20 +186,6 @@ class DatosFertilizanteView(CreateView):
     form_class = DatosFertilizanteForm
     success_url = "/nueva_seguimientos/"
 
-class ZonaProduccionView(CreateView):
-    template_name = "internas/form.html"
-    form_class = ZonaProduccionForm
-    success_url = "/nueva_seguimientos/"
-
-class EpocaSiembraView(CreateView):
-    template_name = "internas/form.html"
-    form_class = EpocaSiembraForm
-    success_url = "/nueva_seguimientos/"
-
-class PlagasEnfermedadesView(CreateView):
-    template_name = "internas/form.html"
-    form_class = PlagasEnfermedadesForm
-    success_url = "/nueva_seguimientos/"
 
 class PlantUpdateView(UpdateView):
     model = Planta
@@ -198,7 +218,6 @@ class PlantUpdateView(UpdateView):
         context['list_url'] = reverse_lazy('plant_list')
         context['action'] = 'edit'
         return context
-
 
 
 class SeguimientoUpdateView(UpdateView):

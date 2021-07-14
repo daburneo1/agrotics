@@ -129,11 +129,11 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+# LOGIN_URL="/login/"
+LOGIN_REDIRECT_URL = "index"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200"
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

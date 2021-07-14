@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -32,14 +32,13 @@ from app.agronomia.views import (BaseView, IndexView, PlantView, NewPlantView, S
 urlpatterns = [
                   path("base", BaseView.as_view(), name='base'),
                   path("", IndexView.as_view(), name='index'),
-                  path("plantas/", PlantView.as_view(), name='plant_list'),
+                  path("planta/", PlantView.as_view(), name='plant_list'),
                   path('plant/edit/<int:pk>', PlantUpdateView.as_view(), name='plant_update'),
                   path('plant/delete/<int:pk>', PlantDeleteView.as_view(), name='plant_delete'),
                   path("seguimiento/", SeguimientoView.as_view(), name='seguimiento_list'),
                   path('seguimiento/edit/<int:pk>', SeguimientoUpdateView.as_view(), name='seguimiento_update'),
                   path('seguimiento/delete/<int:pk>', SeguimientoDeleteView.as_view(), name='seguimiento_delete'),
-
-                  path("nueva_plantas/", NewPlantView.as_view(), name='nuevaPlanta'),
+                  path("nueva_planta/", NewPlantView.as_view(), name='nuevaPlanta'),
                   path("nueva_seguimientos/", NewSeguimientoView.as_view(), name='nuevaSeguimiento'),
                   path("nueva_taxonomia/", TaxonomiaView.as_view(), name='idTaxonomia'),
                   path("nueva_cuidado/", CuidadoView.as_view(), name='idCuidado'),
@@ -55,6 +54,7 @@ urlpatterns = [
                   path("nueva_zona_produccion/", ZonaProduccionView.as_view(), name='idZonaProduccion'),
                   path("nueva_epoca_siembra/", EpocaSiembraView.as_view(), name='idEpocaSiembra'),
                   path("nueva_plagas_enfermedades/", PlagasEnfermedadesView.as_view(), name='idPlagasEnfermedades'),
+                  path("nueva_variedades/", VariedadesView.as_view(), name='idVariedad'),
 
                   path("nueva_datosfenologicos/", DatosFenologicosCultivoView.as_view(),
                        name='idDatosFenologicosCultivo'),
@@ -63,6 +63,10 @@ urlpatterns = [
                   path("nueva_datosanalisisSuelo/", DatosAnalisisSueloView.as_view(), name='idDatosAnalisisSuelo'),
                   path("nueva_datoscontrolplagas/", DatosControlPlagasView.as_view(), name='idDatosControlPlagas'),
                   path("nueva_datosubicacion/", DatosUbicacionView.as_view(), name='idDatosUbicacion'),
-                  path("nueva_plantas/", NewPlantView.as_view(), name='idPlanta'),
+                  path("nueva_planta/", NewPlantView.as_view(), name='idPlanta'),
                   path("nueva_variedades/", VariedadesView.as_view(), name='idVariedades'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]
+# handler404 = 'agrotics.app.handler404'

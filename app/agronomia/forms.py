@@ -23,6 +23,11 @@ class ValorNutricionalForm(ModelForm):
         model = ValorNutricional
         fields = "__all__"
 
+class VariedadesForm(ModelForm):
+    class Meta:
+        model = Variedades
+        fields = "__all__"
+
 
 class DatosClimaForm(ModelForm):
     class Meta:

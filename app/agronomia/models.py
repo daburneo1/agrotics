@@ -117,28 +117,30 @@ class ValorNutricional(models.Model):
 
 
 class ZonaProduccion(models.Model):
-    nombreRegion = models.CharField(null=True, max_length=45)
+    nombreRegion = models.CharField(null=True, max_length=45, verbose_name="Región")
 
 
 class EpocaSiembra(models.Model):
-    nombreEpoca = models.CharField(null=True, max_length=45)
+    nombreEpoca = models.CharField(null=True, max_length=45, verbose_name="Época")
 
 
 class PlagasEnfermedades(models.Model):
-    nombre = models.CharField(null=True, max_length=100)
+    nombre = models.CharField(null=True, max_length=100, verbose_name="Plagas y Enfermedades")
 
+class Variedades(models.Model):
+    variedad = models.CharField(null=True, max_length=45)
 
 class Planta(models.Model):
-    imagen = models.FileField(upload_to='images/', null=True, blank=True)
-    cicloVida = models.CharField(null=True, max_length=45)
+    imagen = models.ImageField(upload_to='images', null=True, blank=True)
+    cicloVida = models.CharField(null=True, max_length=45, verbose_name="Ciclo de vida" )
     origen = models.CharField(null=True, max_length=45)
-    usoAplicacion = models.CharField(null=True, max_length=1000)
-    produccionPromedio = models.CharField(null=True, max_length=100)
+    usoAplicacion = models.CharField(null=True, max_length=1000, verbose_name="Uso y Aplicaciones")
+    produccionPromedio = models.CharField(null=True, max_length=100, verbose_name="Producción promedio")
     altura = models.DecimalField(null=True, decimal_places=3, max_digits=10)
     diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10)
     clima = models.CharField(null=True, max_length=45)
-    preparacionTerreno = models.CharField(null=True, max_length=1000)
-    qr = models.ImageField(null=True, upload_to='qr', blank=True)
+    preparacionTerreno = models.CharField(null=True, max_length=1000, verbose_name="Preparación del terreno")
+    qr = models.ImageField(upload_to='qr', null=True, blank=True, verbose_name="Código QR")
     fechaIngreso = models.DateField(null=True, verbose_name='Fecha de Ingreso', auto_now=True)
     idTaxonomia = models.ForeignKey(Taxonomia, on_delete=models.CASCADE, null=True,
                                     verbose_name="Taxonomia")
@@ -164,15 +166,11 @@ class Planta(models.Model):
                                        verbose_name="Época de Siembra")
     idPlagasEnfermedades = models.ForeignKey(PlagasEnfermedades, on_delete=models.CASCADE, null=True,
                                              verbose_name='Plagas y enfermedades')
+    idVariedad = models.ForeignKey(Variedades, on_delete=models.CASCADE, null=True,
+                                   verbose_name="Variedad")
 
     def __str__(self):
         return str(self.idTaxonomia.nombreCientifico)
-
-
-class Variedades(models.Model):
-    variedad = models.CharField(null=True, max_length=45)
-    idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True)
-
 
 class RegistroGeneral(models.Model):
     ubicacion = models.CharField(null=True, max_length=45, )

@@ -1,1 +1,63 @@
 {% extends 'base.html' %}
+{% block  center %}
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ countPlant }}</h3>
+
+                    <p>Total Plantas</p>
+                </div>
+
+                <div class="icon">
+                    <i class="ion ion-leaf"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>{{ countSeguimiento }}</h3>
+
+                    <p>Total seguimiento</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>{{ countVariedades }}</h3>
+
+                    <p>Total variedades</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+{#        <div class="col-lg-3 col-6">#}
+{#            <!-- small box -->#}
+{#            <div class="small-box bg-danger">#}
+{#                <div class="inner">#}
+{#                    <h3>65</h3>#}
+{##}
+{#                    <p>Unique Visitors</p>#}
+{#                </div>#}
+{#                <div class="icon">#}
+{#                    <i class="ion ion-pie-graph"></i>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <!-- ./col -->
+    </div>
+{% endblock %}
