@@ -86,11 +86,6 @@ class TaxonomiaView(CreateView):
     success_url = "/nueva_plantas/"
     form_class = TaxonomiaForm
 
-class VariedadesView(CreateView):
-    template_name = "internas/form.html"
-    success_url = "/nueva-plantas/"
-    form_class = VariedadesForm
-
 class CuidadoView(CreateView):
     template_name = "internas/form.html"
     form_class = CuidadoForm
