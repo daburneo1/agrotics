@@ -26,7 +26,7 @@ from app.agronomia.views import (BaseView, IndexView, PlantView, NewPlantView, S
                                  DatosFenologicosCultivoView, DatosFertilizanteView, DatosClimaView,
                                  DatosAnalisisSueloView, DatosControlPlagasView, DatosUbicacionView, VariedadesView,
                                  SeguimientoDeleteView, SeguimientoUpdateView, ValorNutricionalView, ZonaProduccionView,
-                                 EpocaSiembraView, PlagasEnfermedadesView,
+                                 EpocaSiembraView, PlagasEnfermedadesView, LogoutSession,
                                  )
 
 urlpatterns = [
@@ -55,7 +55,6 @@ urlpatterns = [
                   path("nueva_epoca_siembra/", EpocaSiembraView.as_view(), name='idEpocaSiembra'),
                   path("nueva_plagas_enfermedades/", PlagasEnfermedadesView.as_view(), name='idPlagasEnfermedades'),
                   path("nueva_variedades/", VariedadesView.as_view(), name='idVariedad'),
-
                   path("nueva_datosfenologicos/", DatosFenologicosCultivoView.as_view(),
                        name='idDatosFenologicosCultivo'),
                   path("nueva_datosfertilizante/", DatosFertilizanteView.as_view(), name='idDatosFertilizante'),
@@ -65,8 +64,6 @@ urlpatterns = [
                   path("nueva_datosubicacion/", DatosUbicacionView.as_view(), name='idDatosUbicacion'),
                   path("nueva_planta/", NewPlantView.as_view(), name='idPlanta'),
                   path("nueva_variedades/", VariedadesView.as_view(), name='idVariedades'),
+                  path("logout/", LogoutSession.as_view(), name="logout"),
+                  path('accounts/', include('django.contrib.auth.urls'), name="login"),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
-# handler404 = 'agrotics.app.handler404'

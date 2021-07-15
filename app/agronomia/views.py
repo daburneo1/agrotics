@@ -2,6 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
+from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView, DeleteView, UpdateView, CreateView, ListView
 
 from django.urls import reverse_lazy
@@ -273,3 +274,6 @@ class SeguimientoDeleteView(DeleteView):
         context['title'] = 'Eliminar seguimiento'
         context['list_url'] = reverse_lazy('seguimiento_list')
         return context
+
+class LogoutSession(LogoutView):
+    next_page = "login"
