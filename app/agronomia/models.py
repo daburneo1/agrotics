@@ -189,28 +189,41 @@ class RegistroGeneral(models.Model):
     fechaMuestreo = models.DateField(null=True)
     observaciones = models.CharField(null=True, max_length=45, )
 
+    def __str__(self):
+        return self.ubicacion
+
 
 class DatosFertilizante(models.Model):
     fertilizacion = models.CharField(null=True, max_length=100)
     cantidad = models.DecimalField(null=True, decimal_places=3, max_digits=10)
     fechaAplicacion = models.DateField(null=True)
 
+    def __str__(self):
+        return self.fertilizacion
+
 
 class DatosControlPlagas(models.Model):
-    controlPlaga = models.CharField(null=True, max_length=45)
+    controlPlaga = models.CharField(null=True, max_length=45, verbose_name="Control de Plagas")
     cantidad = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    fechaAplicacion = models.DateField(null=True)
+    fechaAplicacion = models.DateField(null=True, verbose_name="Fecha de Aplicación")
 
+    def __str__(self):
+        return self.controlPlaga
 
 class DatosClima(models.Model):
     temperatura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
     humedad = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
     riego = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
 
+    def __str__(self):
+        return str(self.temperatura)
 
 class DatosUbicacion(models.Model):
     lote = models.CharField(null=True, max_length=45)
     areaSembrada = models.IntegerField()
+
+    def __str__(self):
+        return self.lote
 
 
 class DatosAnalisisSuelo(models.Model):
@@ -220,6 +233,10 @@ class DatosAnalisisSuelo(models.Model):
     fosforo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
     potasio = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
     otros = models.CharField(null=True, max_length=100, blank=True)
+
+    def __str__(self):
+        _list = [str(self.ph), str(self.mo), str(self.nitrogeno), str(self.fosforo), str(self.potasio)]
+        return " - ".join(list(_list))
 
 
 class DatosFenologicosCultivo(models.Model):
@@ -236,11 +253,13 @@ class DatosFenologicosCultivo(models.Model):
     pesoFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
     produccion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
 
+    def __str__(self):
+        return str(self.germinacion)
 
 class DatosCultivo(models.Model):
     # planta = models.CharField(null=True, max_length=45)
     # nombreCientifico = models.CharField(null=True, max_length=45)
-    # fechaImplementacion = models.DateField(null=True)
+    fechaImplementacion = models.DateField(null=True, verbose_name='Fecha de Ingreso', auto_now=True)
     idPlanta = models.ForeignKey(Planta, on_delete=models.CASCADE, null=True, verbose_name="Planta")
     idDatosUbicacion = models.ForeignKey(DatosUbicacion, on_delete=models.CASCADE, null=True, verbose_name="Ubicación")
     idDatosFenologicosCultivo = models.ForeignKey(DatosFenologicosCultivo, on_delete=models.CASCADE, null=True,

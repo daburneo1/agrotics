@@ -76,7 +76,7 @@
                                                 <tr>
                                                     <td> {{ p.id }} </td>
                                                     <td> {{ p.fechaImplementacion }}</td>
-                                                    <td> {{ p.planta }}</td>
+                                                    <td> {{ p.idPlanta.idTaxonomia.nombreCientifico }}</td>
                                                     <td> {{ p.idDatosUbicacion.lote }}</td>
                                                     <td>
                                                         <a href="{% url 'seguimiento_update' p.id %}"
