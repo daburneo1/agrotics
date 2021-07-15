@@ -64,7 +64,9 @@ class Cuidado(models.Model):
                                           verbose_name="abonamiento y fertitlizacion")
     controlMalasHierbas = models.CharField(null=True, max_length=200,
                                            verbose_name="control de malas hierbas")
-    recoleccionAlmacenamiento = models.CharField(null=True, max_length=200, verbose_name="recoleccion")
+    recoleccion = models.CharField(null=True, max_length=200,
+                                   verbose_name="Recolección")
+    almacenamiento = models.CharField(null=True, max_length=200, verbose_name="Almacenamiento")
 
     def __str__(self):
         return str(self.abonoFertilizacion)
@@ -119,16 +121,26 @@ class ValorNutricional(models.Model):
 class ZonaProduccion(models.Model):
     nombreRegion = models.CharField(null=True, max_length=45, verbose_name="Región")
 
+    def __str__(self):
+        return self.nombreRegion
 
 class EpocaSiembra(models.Model):
     nombreEpoca = models.CharField(null=True, max_length=45, verbose_name="Época")
 
+    def __str__(self):
+        return self.nombreEpoca
 
 class PlagasEnfermedades(models.Model):
     nombre = models.CharField(null=True, max_length=100, verbose_name="Plagas y Enfermedades")
 
+    def __str__(self):
+        return self.nombre
+
 class Variedades(models.Model):
-    variedad = models.CharField(null=True, max_length=45)
+    variedad = models.CharField(null=True, max_length=150)
+
+    def __str__(self):
+        return self.variedad
 
 class Planta(models.Model):
     imagen = models.ImageField(upload_to='images', null=True, blank=True)
