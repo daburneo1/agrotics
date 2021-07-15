@@ -24,10 +24,10 @@
         <div class="card-header text-center">
         </div>
         <div class="card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Inicio de sesión AgroTICS</p>
             {% block content %}
                 {% if form.errors %}
-                    <p>Your username and password didn't match. Please try again.</p>
+                    <p>Su nombre de usuario o contraseña son incorrectos. Por favor intente de nuevo</p>
                 {% endif %}
                 {% if next %}
                     {% if user.is_authenticated %}

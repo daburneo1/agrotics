@@ -18,7 +18,7 @@ class Morfologia(models.Model):
 
 
 class Temperatura(models.Model):
-    optima = models.CharField(null=True, max_length=200, blank=True)
+    optima = models.CharField(null=True, max_length=200, blank=True, verbose_name="Óptima (ªC)")
     germinacion = models.CharField(null=True, max_length=200, blank=True)
     crecimiento = models.CharField(null=True, max_length=200, blank=True)
     descripcion = models.CharField(null=True, max_length=200)
@@ -30,7 +30,7 @@ class Temperatura(models.Model):
 
 class Suelo(models.Model):
     textura = models.CharField(null=True, max_length=200)
-    ph = models.CharField(null=True, max_length=45)
+    ph = models.CharField(null=True, max_length=45, verbose_name="Ph (%)")
     observaciones = models.CharField(null=True, max_length=200)
 
     def __str__(self):
@@ -39,7 +39,7 @@ class Suelo(models.Model):
 
 
 class Humedad(models.Model):
-    humedad = models.CharField(null=True, max_length=100)
+    humedad = models.CharField(null=True, max_length=100, verbose_name="Humedad (%)")
     observaciones = models.CharField(null=True, max_length=200)
 
     def __str__(self):
@@ -148,8 +148,8 @@ class Planta(models.Model):
     origen = models.CharField(null=True, max_length=45)
     usoAplicacion = models.CharField(null=True, max_length=1000, verbose_name="Uso y Aplicaciones")
     produccionPromedio = models.CharField(null=True, max_length=100, verbose_name="Producción promedio")
-    altura = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10)
+    altura = models.DecimalField(null=True, decimal_places=3, max_digits=10, verbose_name="Altura (cm)")
+    diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10, verbose_name="Diametro (cm)")
     clima = models.CharField(null=True, max_length=45)
     preparacionTerreno = models.CharField(null=True, max_length=1000, verbose_name="Preparación del terreno")
     qr = models.ImageField(upload_to='qr', null=True, blank=True, verbose_name="Código QR")
@@ -194,9 +194,9 @@ class RegistroGeneral(models.Model):
 
 
 class DatosFertilizante(models.Model):
-    fertilizacion = models.CharField(null=True, max_length=100)
-    cantidad = models.DecimalField(null=True, decimal_places=3, max_digits=10)
-    fechaAplicacion = models.DateField(null=True)
+    fertilizacion = models.CharField(null=True, max_length=100, verbose_name="Fertilicación")
+    cantidad = models.DecimalField(null=True, decimal_places=3, max_digits=10, verbose_name="Cantidad (g/planta)")
+    fechaAplicacion = models.DateField(null=True, verbose_name="Fecha de Aplicación")
 
     def __str__(self):
         return self.fertilizacion
@@ -204,34 +204,34 @@ class DatosFertilizante(models.Model):
 
 class DatosControlPlagas(models.Model):
     controlPlaga = models.CharField(null=True, max_length=45, verbose_name="Control de Plagas")
-    cantidad = models.DecimalField(null=True, decimal_places=3, max_digits=10)
+    cantidad = models.DecimalField(null=True, decimal_places=3, max_digits=10, verbose_name="Cantidad (g/bomba/parcela)")
     fechaAplicacion = models.DateField(null=True, verbose_name="Fecha de Aplicación")
 
     def __str__(self):
         return self.controlPlaga
 
 class DatosClima(models.Model):
-    temperatura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    humedad = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    riego = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    temperatura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Temperatura (ªC)")
+    humedad = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Humedad relativa (%)")
+    riego = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Riego/lluvia (mL/planta)")
 
     def __str__(self):
         return str(self.temperatura)
 
 class DatosUbicacion(models.Model):
     lote = models.CharField(null=True, max_length=45)
-    areaSembrada = models.IntegerField()
+    areaSembrada = models.IntegerField(verbose_name="Área sembrada")
 
     def __str__(self):
         return self.lote
 
 
 class DatosAnalisisSuelo(models.Model):
-    ph = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    mo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    nitrogeno = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    fosforo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    potasio = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    ph = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Ph")
+    mo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="MO (%)")
+    nitrogeno = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Nitrógeno (%)")
+    fosforo = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Fósforo (mg/hg)")
+    potasio = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Potasio (Cmol/kg)")
     otros = models.CharField(null=True, max_length=100, blank=True)
 
     def __str__(self):
@@ -240,18 +240,18 @@ class DatosAnalisisSuelo(models.Model):
 
 
 class DatosFenologicosCultivo(models.Model):
-    germinacion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    altura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    nroRacimo = models.IntegerField(null=True, blank=True)
-    nroFloresRacimo = models.IntegerField(null=True, blank=True)
-    nroTotalFlores = models.IntegerField(null=True, blank=True)
-    nroFrutosRacimo = models.IntegerField(null=True, blank=True)
-    nroFrutosTotales = models.IntegerField(null=True, blank=True)
-    longitudFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    diametroFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    pesoFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
-    produccion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True)
+    germinacion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Germinacion (%)")
+    altura = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Altura (cm)")
+    diametro = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Diametro (cm)")
+    nroRacimo = models.IntegerField(null=True, blank=True, verbose_name="Nro de racimos")
+    nroFloresRacimo = models.IntegerField(null=True, blank=True, verbose_name="Nro de flores del racimo")
+    nroTotalFlores = models.IntegerField(null=True, blank=True, verbose_name="Nro total de flores")
+    nroFrutosRacimo = models.IntegerField(null=True, blank=True, verbose_name="Nro de frutos del Racimo")
+    nroFrutosTotales = models.IntegerField(null=True, blank=True, verbose_name="Nro de frutos totales")
+    longitudFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Longitud del Fruto (cm)")
+    diametroFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Diametro del Fruto (cm)")
+    pesoFruto = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Peso del fruto (g)")
+    produccion = models.DecimalField(null=True, decimal_places=3, max_digits=10, blank=True, verbose_name="Producción (kg)")
 
     def __str__(self):
         return str(self.germinacion)
