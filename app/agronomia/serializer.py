@@ -169,10 +169,9 @@ class SeguimientoSerializer(serializers.ModelSerializer):
     idDatosControlPlagas = DatosControlPlagasSerializer()
     idDatosUbicacion = DatosUbicacionSerializer()
     idPlanta = PlantaSerializer()
-    idVariedades = VariedadesSerializer()
 
     class Meta:
         model = DatosCultivo
-        fields = ["id", "planta", "nombreCientifico", "fechaImplementacion", "idDatosFenologicosCultivo",
+        fields = ["id", "fechaImplementacion", "idDatosFenologicosCultivo",
                   "idDatosFertilizante", "idDatosClima", "idDatosAnalisisSuelo", "idDatosControlPlagas",
-                  "idDatosUbicacion", "idPlanta", "idVariedades"]
+                  "idDatosUbicacion", "idPlanta"]
