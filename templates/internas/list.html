@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{#{% block head %}#}
-{#    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>#}
-{#    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>#}
-{#    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>#}
-{#    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>#}
-{#    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>#}
-{#    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>#}
-{#{% endblock %}#}
+
 
 {% block content %}
     <div class="card card-default">
@@ -39,27 +32,3 @@
     </div>
 {% endblock %}
 
-{#{% block javascript %}#}
-{#    <script type="application/javascript">#}
-{#    $.noConflict();#}
-{#        $(function (){#}
-{#            $('#data').DataTable({#}
-{#                responsive: true,#}
-{#                autoWidth: false#}
-{#            });#}
-{##}
-{#            $('.btnTest').on('click', function(){#}
-{#                $.ajax({#}
-{#                    url: '{% url 'plant_list' %}',#}
-{#                    type: 'POST',#}
-{#                    data: {id: 3},#}
-{#                    dataType: 'json'#}
-{#                }).done(function (data){#}
-{#                    //$("#respuesta").html(data);#}
-{#                }).fail(function (jqXHR, textStatus, errorThrown) {#}
-{#                    alert(textStatus+': '+errorThrown);#}
-{#                })#}
-{#            });#}
-{#        });#}
-{#    </script>#}
-{#{% endblock %}#}

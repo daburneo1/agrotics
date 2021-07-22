@@ -47,143 +47,143 @@ class ZonaProduccionView(LoginRequiredMixin, CreateView):
     redirect_field_name = 'idZonaProduccion'
 
 
-class EpocaSiembraView(CreateView):
+class EpocaSiembraView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = EpocaSiembraForm
     success_url = "/nueva_seguimientos/"
 
 
-class PlagasEnfermedadesView(CreateView):
+class PlagasEnfermedadesView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = PlagasEnfermedadesForm
     success_url = "/nueva_seguimientos/"
 
 
-class ValorNutricionalView(CreateView):
+class ValorNutricionalView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = ValorNutricionalForm
     success_url = "/nueva_plantas"
 
 
-class SeguimientoView(ListView):
+class SeguimientoView(LoginRequiredMixin,ListView):
     model = DatosCultivo
     template_name = "internas/seguimiento.html"
 
 
-class NewPlantView(CreateView):
+class NewPlantView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = PlantaForm
     success_url = "/nueva_plantas/"
 
 
-class NewSeguimientoView(CreateView):
+class NewSeguimientoView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = SeguimientoForm
     success_url = "/seguimiento/"
 
 
-class TaxonomiaView(CreateView):
+class TaxonomiaView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     success_url = "/nueva_plantas/"
     form_class = TaxonomiaForm
 
-class CuidadoView(CreateView):
+class CuidadoView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = CuidadoForm
     success_url = "/nueva_plantas/"
 
 
-class RiegoView(CreateView):
+class RiegoView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = RiegoForm
     success_url = "/nueva_plantas/"
 
 
-class PlantacionView(CreateView):
+class PlantacionView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = PlantacionForm
     success_url = "/nueva_plantas/"
 
 
-class SemilleroView(CreateView):
+class SemilleroView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = SemilleroForm
     success_url = "/nueva_plantas/"
 
 
-class SueloView(CreateView):
+class SueloView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = SueloForm
     success_url = "/nueva_plantas/"
 
 
-class HumedadView(CreateView):
+class HumedadView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = HumedadForm
     success_url = "/nueva_plantas/"
 
 
-class MorfologiaView(CreateView):
+class MorfologiaView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = MorfologiaForm
     success_url = "/nueva_plantas/"
 
 
-class TemperaturaView(CreateView):
+class TemperaturaView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = TemperaturaForm
     success_url = "/nueva_plantas/"
 
 
-class CategoriaView(CreateView):
+class CategoriaView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = CategoriaForm
     success_url = "/nueva_plantas/"
 
 
-class DatosFenologicosCultivoView(CreateView):
+class DatosFenologicosCultivoView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = DatosFenologicosCultivoForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosAnalisisSueloView(CreateView):
+class DatosAnalisisSueloView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = DatosAnalisisSueloForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosControlPlagasView(CreateView):
+class DatosControlPlagasView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = DatosControlPlagasForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosUbicacionView(CreateView):
+class DatosUbicacionView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = DatosUbicacionForm
     success_url = "/nueva_seguimientos/"
 
 
-class VariedadesView(CreateView):
+class VariedadesView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = VariedadesForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosClimaView(CreateView):
+class DatosClimaView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = DatosClimaForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosFertilizanteView(CreateView):
+class DatosFertilizanteView(LoginRequiredMixin,CreateView):
     template_name = "internas/form.html"
     form_class = DatosFertilizanteForm
     success_url = "/nueva_seguimientos/"
 
 
-class PlantUpdateView(UpdateView):
+class PlantUpdateView(LoginRequiredMixin,UpdateView):
     model = Planta
     form_class = PlantaForm
     template_name = "internas/form.html"
@@ -216,7 +216,7 @@ class PlantUpdateView(UpdateView):
         return context
 
 
-class SeguimientoUpdateView(UpdateView):
+class SeguimientoUpdateView(LoginRequiredMixin,UpdateView):
     model = DatosCultivo
     form_class = SeguimientoForm
     template_name = "internas/form.html"
@@ -249,7 +249,7 @@ class SeguimientoUpdateView(UpdateView):
         return context
 
 
-class PlantDeleteView(DeleteView):
+class PlantDeleteView(LoginRequiredMixin,DeleteView):
     model = Planta
     template_name = 'internas/delete.html'
     form_class = PlantaForm
@@ -263,7 +263,7 @@ class PlantDeleteView(DeleteView):
         return context
 
 
-class SeguimientoDeleteView(DeleteView):
+class SeguimientoDeleteView(LoginRequiredMixin,DeleteView):
     model = DatosCultivo
     template_name = 'internas/delete.html'
     form_class = SeguimientoForm
