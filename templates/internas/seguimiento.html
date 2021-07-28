@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css %}
-    link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+{#{% block css %}#}
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{% static 'lib/adminlte/plugins/fontawesome-free/css/all.css' %}">
     <!-- Theme style -->
@@ -27,7 +27,7 @@
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 
-{% endblock %}
+{#{% endblock %}#}
 {% block center %}
     <section class="content">
         <div class="container-fluid">
@@ -40,7 +40,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-3">
                                         <a href="{% url "nuevaSeguimiento" %}">
-                                            <button type="button" class="btn btn-block btn-danger btn-lg">
+                                            <button type="button" class="btn btn-block btn-success btn-lg">
                                                 Agregar
                                             </button>
                                         </a>

@@ -19,7 +19,7 @@
                                     {{ field|as_crispy_field }}
                                     {% if  field.field.widget.input_type == "select" %}
                                         <a href="{% url field.html_name %}">
-                                            <button type="button" class="btn btn-danger">Agregar</button>
+                                            <button type="button" class="btn btn-outline-success">Agregar</button>
                                         </a>
                                     {% endif %}
                                     <br>
@@ -28,7 +28,7 @@
                             {% endfor %}
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-flat float-right btnTest">
+                            <button type="submit" class="btn btn-success btn-flat float-right btnTest">
                                 <i class="fas fa-save"></i> Guardar
                             </button>
                         </div>
