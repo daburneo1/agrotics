@@ -11,6 +11,7 @@ class PlantaForm(ModelForm):
     class Meta:
         model = Planta
         fields = "__all__"
+        exclude = ['qr']
 
 
 class TaxonomiaForm(ModelForm):
@@ -50,12 +51,6 @@ class DatosControlPlagasForm(ModelForm):
 class DatosUbicacionForm(ModelForm):
     class Meta:
         model = DatosUbicacion
-        fields = "__all__"
-
-
-class VariedadesForm(ModelForm):
-    class Meta:
-        model = Variedades
         fields = "__all__"
 
 
