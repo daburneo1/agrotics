@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{#{% block css %}#}
+{% block css %}
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
@@ -27,7 +27,7 @@
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
 
-{#{% endblock %}#}
+{% endblock %}
 {% block center %}
     <section class="content">
         <div class="container-fluid">
