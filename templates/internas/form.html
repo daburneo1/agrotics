@@ -4,7 +4,6 @@
 {% load static %}
 {% load split %}
 {% block center %}
-
     {#    <div class="content-wrapper">#}
     <h1>{{ request.resolver_match.route | split }}</h1>
     <section class="content">
@@ -21,6 +20,7 @@
                                         <a href="{% url field.html_name %}">
                                             <button type="button" class="btn btn-outline-success">Agregar</button>
                                         </a>
+                                        <hr>
                                     {% endif %}
                                     <br>
                                     <br>

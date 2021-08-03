@@ -47,209 +47,158 @@ class ZonaProduccionView(LoginRequiredMixin, CreateView):
     redirect_field_name = 'idZonaProduccion'
 
 
-class EpocaSiembraView(LoginRequiredMixin,CreateView):
+class EpocaSiembraView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = EpocaSiembraForm
     success_url = "/nueva_seguimientos/"
 
 
-class PlagasEnfermedadesView(LoginRequiredMixin,CreateView):
+class PlagasEnfermedadesView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = PlagasEnfermedadesForm
     success_url = "/nueva_seguimientos/"
 
 
-class ValorNutricionalView(LoginRequiredMixin,CreateView):
+class ValorNutricionalView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = ValorNutricionalForm
     success_url = "/nueva_plantas"
 
 
-class SeguimientoView(LoginRequiredMixin,ListView):
+class SeguimientoView(LoginRequiredMixin, ListView):
     model = DatosCultivo
     template_name = "internas/seguimiento.html"
 
 
-class NewPlantView(LoginRequiredMixin,CreateView):
+class NewPlantView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = PlantaForm
     success_url = "/nueva_plantas/"
 
 
-class NewSeguimientoView(LoginRequiredMixin,CreateView):
+class NewSeguimientoView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = SeguimientoForm
     success_url = "/seguimiento/"
 
 
-class TaxonomiaView(LoginRequiredMixin,CreateView):
+class TaxonomiaView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     success_url = "/nueva_plantas/"
     form_class = TaxonomiaForm
 
-class CuidadoView(LoginRequiredMixin,CreateView):
+
+class CuidadoView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = CuidadoForm
     success_url = "/nueva_plantas/"
 
 
-class RiegoView(LoginRequiredMixin,CreateView):
+class RiegoView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = RiegoForm
     success_url = "/nueva_plantas/"
 
 
-class PlantacionView(LoginRequiredMixin,CreateView):
+class PlantacionView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = PlantacionForm
     success_url = "/nueva_plantas/"
 
 
-class SemilleroView(LoginRequiredMixin,CreateView):
+class SemilleroView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = SemilleroForm
     success_url = "/nueva_plantas/"
 
 
-class SueloView(LoginRequiredMixin,CreateView):
+class SueloView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = SueloForm
     success_url = "/nueva_plantas/"
 
 
-class HumedadView(LoginRequiredMixin,CreateView):
+class HumedadView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = HumedadForm
     success_url = "/nueva_plantas/"
 
 
-class MorfologiaView(LoginRequiredMixin,CreateView):
+class MorfologiaView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = MorfologiaForm
     success_url = "/nueva_plantas/"
 
 
-class TemperaturaView(LoginRequiredMixin,CreateView):
+class TemperaturaView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = TemperaturaForm
     success_url = "/nueva_plantas/"
 
 
-class CategoriaView(LoginRequiredMixin,CreateView):
+class CategoriaView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = CategoriaForm
     success_url = "/nueva_plantas/"
 
 
-class DatosFenologicosCultivoView(LoginRequiredMixin,CreateView):
+class DatosFenologicosCultivoView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = DatosFenologicosCultivoForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosAnalisisSueloView(LoginRequiredMixin,CreateView):
+class DatosAnalisisSueloView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = DatosAnalisisSueloForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosControlPlagasView(LoginRequiredMixin,CreateView):
+class DatosControlPlagasView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = DatosControlPlagasForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosUbicacionView(LoginRequiredMixin,CreateView):
+class DatosUbicacionView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = DatosUbicacionForm
     success_url = "/nueva_seguimientos/"
 
 
-class VariedadesView(LoginRequiredMixin,CreateView):
+class VariedadesView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = VariedadesForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosClimaView(LoginRequiredMixin,CreateView):
+class DatosClimaView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = DatosClimaForm
     success_url = "/nueva_seguimientos/"
 
 
-class DatosFertilizanteView(LoginRequiredMixin,CreateView):
+class DatosFertilizanteView(LoginRequiredMixin, CreateView):
     template_name = "internas/form.html"
     form_class = DatosFertilizanteForm
     success_url = "/nueva_seguimientos/"
 
 
-class PlantUpdateView(LoginRequiredMixin,UpdateView):
+class PlantUpdateView(LoginRequiredMixin, UpdateView):
     model = Planta
     form_class = PlantaForm
     template_name = "internas/form.html"
     success_url = reverse_lazy('plant_list')
 
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            form = self.get_form()
-            if action == 'edit':
-                if form.is_valid():
-                    form.save()
-                else:
-                    data['error'] = form.errors
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data)
-
-    def get_context_data(self, **kwargs):
-        print(self.get_object())
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Edición de planta'
-        context['list_url'] = reverse_lazy('plant_list')
-        context['action'] = 'edit'
-        return context
-
-
-class SeguimientoUpdateView(LoginRequiredMixin,UpdateView):
+class SeguimientoUpdateView(LoginRequiredMixin, UpdateView):
     model = DatosCultivo
     form_class = SeguimientoForm
     template_name = "internas/form.html"
     success_url = reverse_lazy('seguimiento_list')
 
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            form = self.get_form()
-            if action == 'edit':
-                if form.is_valid():
-                    form.save()
-                else:
-                    data['error'] = form.errors
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data)
-
-    def get_context_data(self, **kwargs):
-        print(self.get_object())
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Edición de seguimiento'
-        context['list_url'] = reverse_lazy('seguimiento_list')
-        context['action'] = 'edit'
-        return context
-
-
-class PlantDeleteView(LoginRequiredMixin,DeleteView):
+class PlantDeleteView(LoginRequiredMixin, DeleteView):
     model = Planta
     template_name = 'internas/delete.html'
     form_class = PlantaForm
@@ -263,7 +212,7 @@ class PlantDeleteView(LoginRequiredMixin,DeleteView):
         return context
 
 
-class SeguimientoDeleteView(LoginRequiredMixin,DeleteView):
+class SeguimientoDeleteView(LoginRequiredMixin, DeleteView):
     model = DatosCultivo
     template_name = 'internas/delete.html'
     form_class = SeguimientoForm
@@ -274,6 +223,7 @@ class SeguimientoDeleteView(LoginRequiredMixin,DeleteView):
         context['title'] = 'Eliminar seguimiento'
         context['list_url'] = reverse_lazy('seguimiento_list')
         return context
+
 
 class LogoutSession(LogoutView):
     next_page = "login"
